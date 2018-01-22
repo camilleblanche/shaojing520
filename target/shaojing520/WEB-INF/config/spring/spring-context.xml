@@ -82,6 +82,8 @@
 			<tx:method name="add*" propagation="REQUIRED" rollback-for="java.lang.Exception"/>
 			<tx:method name="delete*" propagation="REQUIRED" rollback-for="java.lang.Exception"/>
 			<tx:method name="update*" propagation="REQUIRED" rollback-for="java.lang.Exception"/>
+			<tx:method name="query*" propagation="REQUIRED" read-only="true"/> 
+			<tx:method name="*" propagation="SUPPORTS" read-only="true" />
 		</tx:attributes>
 	</tx:advice>
 	
@@ -94,7 +96,7 @@
 		<aop:aspect id="logAop" ref="logAspect">
 			<aop:before method="before" pointcut-ref="myCut"/>
 			<aop:after method="after" pointcut-ref="myCut"/>
-			<!--returning的“value”名字必须和logAspect中24行定义的一样-->
+			<!--returning的“value”名字必须和logAspect中26行定义的一样-->
 			<aop:after-returning method="afterReturn" returning="value" pointcut-ref="myCut"/>
 		</aop:aspect>
 		
