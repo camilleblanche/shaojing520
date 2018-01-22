@@ -1,5 +1,6 @@
 package com.camille.shaojing.util;
 
+import java.util.List;
 import java.util.Map;
 
 import com.alibaba.fastjson.JSON;
@@ -29,6 +30,15 @@ public class JsonUtils {
 	 */
 	public static <T> T parseObject(String jsonStr,Class<T> clazz){
 		return JSON.parseObject(jsonStr, clazz);
+	}
+	/**
+	 * 将JSON字符串转为clazz集合
+	 * @param jsonStr
+	 * @param clazz
+	 * @return
+	 */
+	public static <T> List<T> parseArray(String jsonStr,Class<T> clazz){
+		return JSON.parseArray(jsonStr, clazz);
 	}
 	
 }
