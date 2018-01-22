@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.camille.shaojing.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.camille.shaojing.model.User">
+    <id column="USER_ID" jdbcType="INTEGER" property="userId" />
+    <result column="LOGIN_PASSWORD" jdbcType="VARCHAR" property="loginPassword" />
+    <result column="NICK_NAME" jdbcType="VARCHAR" property="nickName" />
+    <result column="REAL_NAME" jdbcType="VARCHAR" property="realName" />
+    <result column="PHONE_NUMBER" jdbcType="INTEGER" property="phoneNumber" />
+    <result column="GENDER" jdbcType="VARCHAR" property="gender" />
+    <result column="E_MAIL" jdbcType="VARCHAR" property="eMail" />
+    <result column="ADDRESS" jdbcType="VARCHAR" property="address" />
+    <result column="LOVE_STATE" jdbcType="VARCHAR" property="loveState" />
+    <result column="AGE" jdbcType="INTEGER" property="age" />
+    <result column="BIRTHDAY" jdbcType="VARCHAR" property="birthday" />
+    <result column="ACCOUNT_STATE" jdbcType="VARCHAR" property="accountState" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    USER_ID, LOGIN_PASSWORD, NICK_NAME, REAL_NAME, PHONE_NUMBER, GENDER, E_MAIL, ADDRESS, 
+    LOVE_STATE, AGE, BIRTHDAY, ACCOUNT_STATE, CREATE_TIME, UPDATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from s_user
+    where USER_ID = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from s_user
+    where USER_ID = #{userId}
+  </delete>
+  <insert id="insert" parameterType="com.camille.shaojing.model.User">
+    insert into s_user (USER_ID, LOGIN_PASSWORD, NICK_NAME, 
+      REAL_NAME, PHONE_NUMBER, GENDER, 
+      E_MAIL, ADDRESS, LOVE_STATE, 
+      AGE, BIRTHDAY, ACCOUNT_STATE, 
+      CREATE_TIME, UPDATE_TIME)
+    values (#{userId,jdbcType=INTEGER}, #{loginPassword,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, 
+      #{realName,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=INTEGER}, #{gender,jdbcType=VARCHAR}, 
+      #{eMail,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{loveState,jdbcType=VARCHAR}, 
+      #{age,jdbcType=INTEGER}, #{birthday,jdbcType=VARCHAR}, #{accountState,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="map">
+    insert into s_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="loginPassword != null">
+        LOGIN_PASSWORD,
+      </if>
+      <if test="nickName != null">
+        NICK_NAME,
+      </if>
+      <if test="realName != null">
+        REAL_NAME,
+      </if>
+      <if test="phoneNumber != null">
+        PHONE_NUMBER,
+      </if>
+      <if test="gender != null">
+        GENDER,
+      </if>
+      <if test="eMail != null">
+        E_MAIL,
+      </if>
+      <if test="address != null">
+        ADDRESS,
+      </if>
+      <if test="loveState != null">
+        LOVE_STATE,
+      </if>
+      <if test="age != null">
+        AGE,
+      </if>
+      <if test="birthday != null">
+        BIRTHDAY,
+      </if>
+      <if test="accountState != null">
+        ACCOUNT_STATE,
+      </if>
+        CREATE_TIME,
+        UPDATE_TIME,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId},
+      </if>
+      <if test="loginPassword != null">
+        #{loginPassword},
+      </if>
+      <if test="nickName != null">
+        #{nickName},
+      </if>
+      <if test="realName != null">
+        #{realName},
+      </if>
+      <if test="phoneNumber != null">
+        #{phoneNumber},
+      </if>
+      <if test="gender != null">
+        #{gender},
+      </if>
+      <if test="eMail != null">
+        #{eMail},
+      </if>
+      <if test="address != null">
+        #{address},
+      </if>
+      <if test="loveState != null">
+        #{loveState},
+      </if>
+      <if test="age != null">
+        #{age},
+      </if>
+      <if test="birthday != null">
+        #{birthday},
+      </if>
+      <if test="accountState != null">
+        #{accountState},
+      </if>
+       	NOW(),
+        NOW(),
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="map">
+    update s_user
+    <set>
+      <if test="loginPassword != null">
+        LOGIN_PASSWORD = #{loginPassword},
+      </if>
+      <if test="nickName != null">
+        NICK_NAME = #{nickName},
+      </if>
+      <if test="realName != null">
+        REAL_NAME = #{realName},
+      </if>
+      <if test="phoneNumber != null">
+        PHONE_NUMBER = #{phoneNumber},
+      </if>
+      <if test="gender != null">
+        GENDER = #{gender},
+      </if>
+      <if test="eMail != null">
+        E_MAIL = #{eMail},
+      </if>
+      <if test="address != null">
+        ADDRESS = #{address},
+      </if>
+      <if test="loveState != null">
+        LOVE_STATE = #{loveState},
+      </if>
+      <if test="age != null">
+        AGE = #{age},
+      </if>
+      <if test="birthday != null">
+        BIRTHDAY = #{birthday},
+      </if>
+      <if test="accountState != null">
+        ACCOUNT_STATE = #{accountState},
+      </if>
+        UPDATE_TIME = NOW(),
+    </set>
+    where USER_ID = #{userId}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.camille.shaojing.model.User">
+    update s_user
+    set LOGIN_PASSWORD = #{loginPassword,jdbcType=VARCHAR},
+      NICK_NAME = #{nickName,jdbcType=VARCHAR},
+      REAL_NAME = #{realName,jdbcType=VARCHAR},
+      PHONE_NUMBER = #{phoneNumber,jdbcType=INTEGER},
+      GENDER = #{gender,jdbcType=VARCHAR},
+      E_MAIL = #{eMail,jdbcType=VARCHAR},
+      ADDRESS = #{address,jdbcType=VARCHAR},
+      LOVE_STATE = #{loveState,jdbcType=VARCHAR},
+      AGE = #{age,jdbcType=INTEGER},
+      BIRTHDAY = #{birthday,jdbcType=VARCHAR},
+      ACCOUNT_STATE = #{accountState,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where USER_ID = #{userId,jdbcType=INTEGER}
+  </update>
+</mapper>
