@@ -33,8 +33,8 @@ public class JsonUtils {
 	}
 	/**
 	 * 将JSON字符串转为clazz集合
-	 * @param jsonStr
-	 * @param clazz
+	 * @param jsonStr JSON字符串
+	 * @param clazz JSON字符串
 	 * @return
 	 */
 	public static <T> List<T> parseArray(String jsonStr,Class<T> clazz){
