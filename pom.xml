@@ -35,7 +35,7 @@
     <cglib.version>3.1</cglib.version>
     <shiro.version>1.3.2</shiro.version>
     <jedis.version>2.9.0</jedis.version>
-    <spring.data.jedis.version>2.0.2.RELEASE</spring.data.jedis.version>
+    <spring.data.jedis.version>1.7.2.RELEASE</spring.data.jedis.version>
   </properties>
   <dependencies>
    	<!-- junit -->

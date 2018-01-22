@@ -20,6 +20,7 @@
 	</context:component-scan>
 	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="location" value="/WEB-INF/config/property/jdbc.properties"/>
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
 	</bean>
 	
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
@@ -101,6 +102,6 @@
 		</aop:aspect>
 		
 	</aop:config>
-	<!-- <import resource=".xml"/> -->
+	<import resource="spring-redis.xml"/>
 	
 </beans>
