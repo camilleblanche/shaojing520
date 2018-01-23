@@ -1,4 +1,4 @@
-package com.camille.shaojing.redis;
+package com.camille.shaojing.test;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,9 +16,10 @@ import redis.clients.jedis.Jedis;
 //@ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/config/spring/spring-redis.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations= {"classpath:spring/spring-context.xml"})
-public class RedisTest extends AbstractJUnit4SpringContextTests {
+public class RedisUtilsTest extends AbstractJUnit4SpringContextTests {
 	@Autowired
 	private RedisUtils redisUtils;
+	
 	@Before
 	public void before() {
 		/*@SuppressWarnings("resource")
@@ -39,6 +40,7 @@ public class RedisTest extends AbstractJUnit4SpringContextTests {
 	}
 	@Test
 	public void jedisUtilsTest() {
-		System.out.println(redisUtils.get("wife"));
+		System.out.println("husband:"+redisUtils.get("husband"));
+		System.out.println("wife:"+redisUtils.get("wife"));
 	}
 }

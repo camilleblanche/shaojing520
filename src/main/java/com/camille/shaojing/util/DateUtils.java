@@ -16,7 +16,6 @@ public class DateUtils {
 		java.util.Date date=null;
 		try {
 			date=dateFormat.parse(datestr);
-			System.out.println(date);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}

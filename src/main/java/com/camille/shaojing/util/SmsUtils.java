@@ -11,13 +11,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.junit.Test;
-
 public class SmsUtils {
-	private static Log log = LogFactory.getLog(SmsUtils.class);
-
 	private static String name = "dxwyybg";// 用户名
 
 	private static String pwd = "8F2EBDF8212E4A8188DC42352E11";// 密码
@@ -118,15 +112,5 @@ public class SmsUtils {
 			}
 		}
 		return sb1.toString();
-	}
-
-	@Test
-	public void smsUtilsTest() {
-		try {
-			String result = doPost("17683755019,15657127019", "【Forever Love】To my loving girlfriend:Happy birthday.");
-			log.info("result:" + result);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 }
