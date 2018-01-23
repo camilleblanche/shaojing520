@@ -37,7 +37,7 @@ public class SmsUtils {
 		param.append("name=" + name);
 		param.append("&pwd=" + pwd);
 		param.append("&mobile=").append(mobileString);
-		param.append("&content=").append(URLEncoder.encode(contextString.toString(), "UTF-8"));
+		param.append("&content=").append(URLEncoder.encode(contextString, "UTF-8"));
 		param.append("&stime=" + stime);
 		param.append("&sign=").append(URLEncoder.encode(sign, "UTF-8"));
 		param.append("&type=pt");
