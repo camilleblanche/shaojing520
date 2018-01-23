@@ -21,7 +21,8 @@
   	<task:annotation-driven executor="executor" scheduler="scheduler" />  
 
   	<bean id="timedTask" class="com.camille.shaojing.task.TimedTask"></bean>  
-	<task:scheduled-tasks>  
-		<task:scheduled ref="timedTask" method="checkChargeOrders" cron="0 20 05 24 02 ?"/>
+	<task:scheduled-tasks>
+		<!-- 生日推送祝福短信 -->
+		<task:scheduled ref="timedTask" method="loveHint" cron="0 20 05 24 02 ?"/>
 	</task:scheduled-tasks> 
 </beans>
