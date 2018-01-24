@@ -15,9 +15,9 @@ import com.camille.shaojing.util.DateUtils;
 public class DemoJob implements Job {
 	private static Log LOG = LogFactory.getLog(DemoJob.class);
 	
-	private String wife;
+	//private String wife;
 	
-	private Long age;//(1)使用JobFactory实现基本类型数据的自动"注入",推荐
+	//private Long age;//(1)使用JobFactory实现基本类型数据的自动"注入",推荐
 	@Override
 	public void execute(JobExecutionContext context) throws JobExecutionException {
 		LOG.info(DateUtils.getStrByDate(new Date(), "yyyy-MM-dd HH:mm:ss")+" job begin.");
@@ -34,7 +34,7 @@ public class DemoJob implements Job {
 		}
 		LOG.info(DateUtils.getStrByDate(new Date(), "yyyy-MM-dd HH:mm:ss")+" job end.");
 	}
-	public String getWife() {
+/*	public String getWife() {
 		return wife;
 	}
 	public void setWife(String wife) {
@@ -45,5 +45,5 @@ public class DemoJob implements Job {
 	}
 	public void setAge(Long age) {
 		this.age = age;
-	}
+	}*/
 }

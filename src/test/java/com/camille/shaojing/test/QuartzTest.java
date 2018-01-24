@@ -1,5 +1,8 @@
 package com.camille.shaojing.test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.camille.shaojing.constant.QuartzConstants;
 import com.camille.shaojing.log4jinit.JUnit4ClassRunner;
-import com.camille.shaojing.quartz.SmsJob;
+import com.camille.shaojing.quartz.DemoJob;
 import com.camille.shaojing.service.IQuartzService;
 
 @RunWith(JUnit4ClassRunner.class)
@@ -20,12 +23,16 @@ public class QuartzTest extends AbstractJUnit4SpringContextTests{
 	private IQuartzService IQuartzService;
 	@Test
 	public void quartzAddJobTest() {
-		IQuartzService.addJob("shaojing", QuartzConstants.JOB_GROUP_NAME, 
-				"camille", QuartzConstants.TRIGGER_GROUP_NAME, SmsJob.class, "0 35 13 24 01 ?");
+		Map<String,Object> map=new HashMap<String,Object>();
+		map.put("wife", "shaojing");
+		map.put("age", 20L);
+		IQuartzService.addJob("lichaozhong", QuartzConstants.JOB_GROUP_NAME, 
+				"shaojing", QuartzConstants.TRIGGER_GROUP_NAME, DemoJob.class, "0 00 16 24 01 ?",
+				map);
 	}
 	@Test
 	public void quartzDelJobTest() {
-		IQuartzService.removeJob("shaojing", QuartzConstants.JOB_GROUP_NAME,
-				"camille", QuartzConstants.TRIGGER_GROUP_NAME);
+		IQuartzService.removeJob("lichaozhong", QuartzConstants.JOB_GROUP_NAME,
+				"shaojing", QuartzConstants.TRIGGER_GROUP_NAME);
 	}
 }
