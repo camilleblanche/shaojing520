@@ -1,5 +1,7 @@
 package com.camille.shaojing.service;
 
+import java.util.Map;
+
 import org.quartz.Job;
 
 public interface IQuartzService {
@@ -27,6 +29,31 @@ public interface IQuartzService {
 	 */
 	public void addJob(String jobName, String jobGroupName, String triggerName, String triggerGroupName, Class<? extends Job> cls,
 			String cron);
+	/**
+	 * addJob(方法描述：添加一个定时任务,job传值) <br />
+	 * (方法适用条件描述： – 可选)
+	 * 
+	 * @param <T>
+	 * 
+	 * @param jobName
+	 *            作业名称
+	 * @param jobGroupName
+	 *            作业组名称
+	 * @param triggerName
+	 *            触发器名称
+	 * @param triggerGroupName
+	 *            触发器组名称
+	 * @param cls
+	 *            定时任务的class
+	 * @param cron
+	 *            时间表达式 void
+	 * @param paramMap
+	 * 			     传值paramMap      
+	 * @exception @since
+	 *                1.0.0
+	 */
+	public void addJob(String jobName, String jobGroupName, String triggerName, String triggerGroupName, Class<? extends Job> cls,
+			String cron,Map<String, ?> paramMap);
 
 	/**
 	 * 

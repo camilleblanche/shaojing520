@@ -21,7 +21,7 @@ public class QuartzTest extends AbstractJUnit4SpringContextTests{
 	@Test
 	public void quartzAddJobTest() {
 		IQuartzService.addJob("shaojing", QuartzConstants.JOB_GROUP_NAME, 
-				"camille", QuartzConstants.TRIGGER_GROUP_NAME, SmsJob.class, "0 43 10 24 01 ?");
+				"camille", QuartzConstants.TRIGGER_GROUP_NAME, SmsJob.class, "0 35 13 24 01 ?");
 	}
 	@Test
 	public void quartzDelJobTest() {

@@ -21,7 +21,7 @@ import redis.clients.jedis.Jedis;
 @ContextConfiguration(locations= {"classpath:spring/spring-context.xml"})
 @Transactional
 public class RedisUtilsTest extends AbstractJUnit4SpringContextTests {
-	private static Log log = LogFactory.getLog(RedisUtilsTest.class);
+	private static Log LOG = LogFactory.getLog(RedisUtilsTest.class);
 	@Autowired
 	private RedisUtils redisUtils;
 	
@@ -39,13 +39,13 @@ public class RedisUtilsTest extends AbstractJUnit4SpringContextTests {
 		jedis.set("girlName","shaojing"); // 设置值
 		String boyName=jedis.get("boyName");
 		String girlName=jedis.get("girlName"); // 获取值
-		log.info("boyName:"+boyName);
-		log.info("girlName:"+girlName);
+		LOG.info("boyName:"+boyName);
+		LOG.info("girlName:"+girlName);
 		jedis.close(); // 释放连接资源
 	}
 	@Test
 	public void jedisUtilsTest() {
-		log.info("husband:"+redisUtils.get("husband"));
-		log.info("wife:"+redisUtils.get("wife"));
+		LOG.info("husband:"+redisUtils.get("husband"));
+		LOG.info("wife:"+redisUtils.get("wife"));
 	}
 }

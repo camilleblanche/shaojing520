@@ -15,12 +15,12 @@ import com.camille.shaojing.util.SmsUtils;
 @ContextConfiguration(locations= {"classpath:spring/spring-context.xml"})
 @Transactional
 public class SmsUtilsTest extends AbstractJUnit4SpringContextTests {
-	private static Log log = LogFactory.getLog(RedisUtilsTest.class);
+	private static Log LOG = LogFactory.getLog(RedisUtilsTest.class);
 	@Test
 	public void smsUtilsTest() {
 		try {
 			String result = SmsUtils.doPost("17683755019,15657127019", "【Forever Love】To my loving girlfriend:Happy birthday.");
-			log.info("result:" + result);
+			LOG.info("result:" + result);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

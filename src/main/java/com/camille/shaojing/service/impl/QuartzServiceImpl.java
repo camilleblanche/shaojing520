@@ -1,10 +1,13 @@
 package com.camille.shaojing.service.impl;
 
 
+import java.util.Map;
+
 import org.quartz.CronScheduleBuilder;
 import org.quartz.CronTrigger;
 import org.quartz.Job;
 import org.quartz.JobBuilder;
+import org.quartz.JobDataMap;
 import org.quartz.JobDetail;
 import org.quartz.JobKey;
 import org.quartz.Scheduler;
@@ -29,7 +32,36 @@ public class QuartzServiceImpl implements IQuartzService{
 			Scheduler sched = quartzScheduler;
 			// 创建一项作业
 			JobDetail job = JobBuilder.newJob(cls)
-					.withIdentity(jobName, jobGroupName).build();
+					.withIdentity(jobName, jobGroupName)
+					.build();
+			// 创建一个触发器
+			CronTrigger trigger = TriggerBuilder.newTrigger()
+					.withIdentity(triggerName, triggerGroupName)
+					.withSchedule(CronScheduleBuilder.cronSchedule(cron))
+					.build();
+			// 告诉调度器使用该触发器来安排作业
+			sched.scheduleJob(job, trigger);
+			// 启动
+			if (!sched.isShutdown()) {
+				sched.start();
+			}
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+	@Override
+	public void addJob(String jobName, String jobGroupName, String triggerName,
+			String triggerGroupName, Class<? extends Job> cls, String cron,
+			Map<String,?> paramMap) {
+		try {
+			// 获取调度器
+			Scheduler sched = quartzScheduler;
+			JobDataMap jobDataMap = new JobDataMap(paramMap);
+			// 创建一项作业
+			JobDetail job = JobBuilder.newJob(cls)
+					.withIdentity(jobName, jobGroupName)
+					.usingJobData(jobDataMap)
+					.build();
 			// 创建一个触发器
 			CronTrigger trigger = TriggerBuilder.newTrigger()
 					.withIdentity(triggerName, triggerGroupName)

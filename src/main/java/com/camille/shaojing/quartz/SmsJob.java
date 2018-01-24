@@ -12,17 +12,17 @@ import com.camille.shaojing.util.DateUtils;
 import com.camille.shaojing.util.SmsUtils;
 
 public class SmsJob implements Job{
-	private static Log log = LogFactory.getLog(SmsJob.class);
+	private static Log LOG = LogFactory.getLog(SmsJob.class);
 	@Override
-	public void execute(JobExecutionContext arg0) throws JobExecutionException {
-		log.info(DateUtils.getStrByDate(new Date(), "yyyy-MM-dd HH:mm:ss")+" Send message begin.");
+	public void execute(JobExecutionContext context) throws JobExecutionException {
+		LOG.info(DateUtils.getStrByDate(new Date(), "yyyy-MM-dd HH:mm:ss")+" Send message begin.");
 		try {
 			String result = SmsUtils.doPost("17683755019,15657127019", "【Forever Love】To my loving girlfriend:Happy birthday.");
-			log.info("result:" + result);
+			LOG.info("result:" + result);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		log.info(DateUtils.getStrByDate(new Date(), "yyyy-MM-dd HH:mm:ss")+" Send message end.");
+		LOG.info(DateUtils.getStrByDate(new Date(), "yyyy-MM-dd HH:mm:ss")+" Send message end.");
 	}
 
 }
