@@ -1,5 +1,7 @@
 package com.camille.shaojing.test;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,15 +10,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.camille.shaojing.log4jinit.JUnit4ClassRunner;
 import com.camille.shaojing.util.RedisUtils;
 
 import redis.clients.jedis.Jedis;
 //@ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/config/spring/spring-redis.xml"})
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(JUnit4ClassRunner.class)
 @ContextConfiguration(locations= {"classpath:spring/spring-context.xml"})
+@Transactional
 public class RedisUtilsTest extends AbstractJUnit4SpringContextTests {
+	private static Log log = LogFactory.getLog(RedisUtilsTest.class);
 	@Autowired
 	private RedisUtils redisUtils;
 	
@@ -34,13 +39,13 @@ public class RedisUtilsTest extends AbstractJUnit4SpringContextTests {
 		jedis.set("girlName","shaojing"); // 设置值
 		String boyName=jedis.get("boyName");
 		String girlName=jedis.get("girlName"); // 获取值
-		System.out.println("boyName:"+boyName);
-		System.out.println("girlName:"+girlName);
+		log.info("boyName:"+boyName);
+		log.info("girlName:"+girlName);
 		jedis.close(); // 释放连接资源
 	}
 	@Test
 	public void jedisUtilsTest() {
-		System.out.println("husband:"+redisUtils.get("husband"));
-		System.out.println("wife:"+redisUtils.get("wife"));
+		log.info("husband:"+redisUtils.get("husband"));
+		log.info("wife:"+redisUtils.get("wife"));
 	}
 }

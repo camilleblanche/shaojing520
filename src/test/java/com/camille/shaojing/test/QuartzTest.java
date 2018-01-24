@@ -5,14 +5,16 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.camille.shaojing.constant.QuartzConstants;
+import com.camille.shaojing.log4jinit.JUnit4ClassRunner;
 import com.camille.shaojing.quartz.SmsJob;
 import com.camille.shaojing.service.IQuartzService;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(JUnit4ClassRunner.class)
 @ContextConfiguration(locations= {"classpath:spring/spring-context.xml"})
+@Transactional  
 public class QuartzTest extends AbstractJUnit4SpringContextTests{
 	@Autowired
 	private IQuartzService IQuartzService;
