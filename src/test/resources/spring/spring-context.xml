@@ -102,6 +102,16 @@
 		</aop:aspect>
 		
 	</aop:config>
+	
+	<!-- quartz的Job注入spring对象 -->
+	<bean id="jobFactory" class="com.camille.shaojing.quartz.JobFactory"></bean>
+	<!-- quartz持久化到数据库 -->
+	<bean name="quartzScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" >
+        <property name="dataSource" ref ="dataSource" />       
+        <property name="applicationContextSchedulerContextKey" value="applicationContextKey"/>
+        <property name="jobFactory" ref="jobFactory"></property>
+        <property name="configLocation" value="file:src/main/webapp/WEB-INF/config/property/quartz.properties"/>           
+    </bean>
 	<import resource="spring-redis.xml"/>
 	<import resource="spring-task.xml"/>
 	
