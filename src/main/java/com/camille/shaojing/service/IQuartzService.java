@@ -48,7 +48,7 @@ public interface IQuartzService {
 	 * @param cron
 	 *            时间表达式 void
 	 * @param paramMap
-	 * 			     传值paramMap      
+	 * 			     传值paramMap(value必须为可序列的对象)
 	 * @exception @since
 	 *                1.0.0
 	 */
