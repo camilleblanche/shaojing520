@@ -11,7 +11,8 @@ import org.springframework.util.CollectionUtils;
 /** 
  *  
  * @author
- * 基于spring和redis的redisTemplate工具类 
+ * 
+ * 基于spring-redis的redisTemplate工具类 
  * 
  */  
 public class RedisUtils {
@@ -40,7 +41,7 @@ public class RedisUtils {
     }  
       
     /** 
-     * 根据key 获取过期时间 
+     * 根据key获取过期时间 
      * @param key 键 不能为null 
      * @return 时间(秒) 返回0代表为永久有效 
      */  
@@ -153,7 +154,7 @@ public class RedisUtils {
       
     //================================Map=================================  
     /** 
-     * HashGet 
+     * 获取hashKey对应的值  
      * @param key 键 不能为null 
      * @param item 项 不能为null 
      * @return 值 
