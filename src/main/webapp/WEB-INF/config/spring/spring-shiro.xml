@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:core="http://activemq.apache.org/schema/core"
+    xmlns:redis="http://www.springframework.org/schema/redis"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+        http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core">
+
+    <!-- SecurityManager -->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <!-- session管理 -->
+        <property name="sessionManager" ref="sessionManager"></property>
+    </bean>
+    <!-- Session ID 生成器 -->
+    <bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"></bean>
+    <!-- SessionDao实现类 -->
+    <bean id="sessionDAO" class="com.camille.shaojing.shiro.RedisSessionDao">
+        <property name="sessionIdGenerator" ref="sessionIdGenerator"></property>
+    </bean>
+    <!-- session管理 -->
+    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+        <property name="globalSessionTimeout" value="1800000"></property>
+        <property name="deleteInvalidSessions" value="true"></property>
+        <property name="sessionDAO" ref="sessionDAO"></property>
+        <!-- sessionIdCookie的实现,用于重写覆盖容器默认的JSESSIONID -->
+        <property name="sessionIdCookie" ref="sharesession" />
+    </bean>
+    <!-- sessionIdCookie的实现,用于重写覆盖容器默认的JSESSIONID -->
+    <bean id="sharesession" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <!-- cookie的name,对应的默认是 JSESSIONID -->
+        <constructor-arg name="name" value="SHAREJSESSIONID" />
+        <!-- jsessionId的path为 / 用于多个系统共享jsessionId -->
+        <property name="path" value="/" />
+        <property name="httpOnly" value="true"/>
+    </bean>
+    
+</beans>
