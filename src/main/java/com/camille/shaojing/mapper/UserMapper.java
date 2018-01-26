@@ -1,6 +1,7 @@
 package com.camille.shaojing.mapper;
 
 import java.util.Map;
+import java.util.Set;
 
 import com.camille.shaojing.model.User;
 
@@ -16,4 +17,10 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(Map<String, Object> map);
 
     int updateByPrimaryKey(User record);
+    
+	User getByUserName(String userName);
+	
+	Set<String> getRoles(String userName);
+	
+	Set<String> getPermissions(String userName);
 }

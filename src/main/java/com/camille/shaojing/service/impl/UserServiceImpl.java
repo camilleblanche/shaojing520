@@ -2,12 +2,14 @@ package com.camille.shaojing.service.impl;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.camille.shaojing.dao.IUserDao;
+import com.camille.shaojing.model.User;
 import com.camille.shaojing.service.IUserService;
 import com.camille.shaojing.util.BaseUtils;
 import com.camille.shaojing.util.CryptographyUtils;
@@ -66,6 +68,21 @@ public class UserServiceImpl implements IUserService{
 			rtnMap.put("message","修改用户失败");
 		}
 		return rtnMap;
+	}
+
+	@Override
+	public User getByUserName(String userName) {
+		return iUserDao.getByUserName(userName);
+	}
+
+	@Override
+	public Set<String> getRoles(String userName) {
+		return iUserDao.getRoles(userName);
+	}
+
+	@Override
+	public Set<String> getPermissions(String userName) {
+		return iUserDao.getPermissions(userName);
 	}
 
 }
