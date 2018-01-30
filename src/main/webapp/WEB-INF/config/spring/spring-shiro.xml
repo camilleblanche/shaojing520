@@ -12,20 +12,17 @@
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <!-- session管理 -->
         <property name="sessionManager" ref="sessionManager"></property>
+        <property name="cacheManager" ref="redisCacheManager" />
         <!-- 自定义realm -->
-        <property name="realm" ref="myRealm"/> 
-    </bean>
-    <!-- Session ID 生成器 -->
-    <bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"></bean>
-    <!-- SessionDao实现类 -->
-    <bean id="sessionDAO" class="com.camille.shaojing.shiro.RedisSessionDao">
-        <property name="sessionIdGenerator" ref="sessionIdGenerator"></property>
+        <property name="realm" ref="customizeRealm"/> 
     </bean>
     <!-- session管理 -->
     <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
         <property name="globalSessionTimeout" value="1800000"></property>
         <property name="deleteInvalidSessions" value="true"></property>
-        <property name="sessionDAO" ref="sessionDAO"></property>
+        <!-- 定时检查失效的session -->
+        <property name="sessionValidationSchedulerEnabled" value="true"/>
+        <property name="sessionDAO" ref="redisShiroSessionDAO"></property>
         <!-- sessionIdCookie的实现,用于重写覆盖容器默认的JSESSIONID -->
         <property name="sessionIdCookie" ref="sharesession" />
     </bean>
@@ -38,7 +35,7 @@
         <property name="httpOnly" value="true"/>
     </bean>
     <!-- 自定义Realm -->
-	<bean id="myRealm" class="com.camille.shaojing.shiro.CustomizeRealm"/>  
+	<bean id="customizeRealm" class="com.camille.shaojing.shiro.CustomizeRealm"/>  
     <!-- Shiro过滤器 -->
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">  
 	    <!-- Shiro的核心安全接口,这个属性是必须的 -->  
@@ -57,13 +54,29 @@
 	        </value>  
 	    </property>
 	</bean>  
-	
 	<!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->  
 	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>  
-	
 	<!-- 开启Shiro注解 -->
 	<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor"/>  
   	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">  
   	  <property name="securityManager" ref="securityManager"/>  
-    </bean>  
+    </bean>
+    <!--redis开始 -->
+     <!-- 自定义sessionDao -->
+	<bean id="redisShiroSessionDAO" class="com.camille.shaojing.shiro.RedisSessionDAO">
+		<property name="redisManager" ref="redisManager" />
+		<property name="sessionIdGenerator" ref="sessionIdGenerator"></property>
+	</bean>
+     <!-- Session ID 生成器 -->
+    <bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"></bean>
+	<!-- 自定义cacheManager -->
+	<bean id="redisCacheManager" class="com.camille.shaojing.shiro.RedisCacheManager">
+		<property name="redisManager" ref="redisManager" />
+	</bean>
+	<!-- 自定义cache -->
+	<bean id="redisCache" class="com.camille.shaojing.shiro.RedisCache">
+		<constructor-arg ref="redisManager"></constructor-arg>
+	</bean>
+	<bean id="redisManager" class="com.camille.shaojing.shiro.RedisManager"></bean>
+	<!--redis结束 -->
 </beans>
