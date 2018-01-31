@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.camille.shaojing.dao.IUserDao;
@@ -17,7 +16,6 @@ import com.camille.shaojing.util.CryptographyUtils;
 public class UserServiceImpl implements IUserService{
 	@Autowired
 	private IUserDao iUserDao;
-	@Cacheable()
 	@Override
 	public Map<String, Object> addUser(Map<String, Object> map) {
 		Map<String, Object> rtnMap=new HashMap<String, Object>();

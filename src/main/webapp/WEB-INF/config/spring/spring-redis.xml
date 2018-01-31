@@ -3,15 +3,19 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
        xmlns:p="http://www.springframework.org/schema/p"  
        xmlns:tx="http://www.springframework.org/schema/tx"  
-       xmlns:context="http://www.springframework.org/schema/context"  
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:cache="http://www.springframework.org/schema/cache"  
        xsi:schemaLocation="  
       http://www.springframework.org/schema/beans  
       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
       http://www.springframework.org/schema/tx  
       http://www.springframework.org/schema/tx/spring-tx-3.0.xsd  
       http://www.springframework.org/schema/context  
-      http://www.springframework.org/schema/context/spring-context-3.0.xsd">  
-  
+      http://www.springframework.org/schema/context/spring-context-3.0.xsd
+      http://www.springframework.org/schema/cache 
+      http://www.springframework.org/schema/cache/spring-cache-4.2.xsd">  
+      
+	<cache:annotation-driven cache-manager="redisCacheManager"/>
     <!-- scanner redis properties  -->
     <context:property-placeholder location="/WEB-INF/config/property/redis.properties" ignore-unresolvable="true"/>  
   
@@ -48,14 +52,17 @@
         <property name="hashValueSerializer">    
             <bean class="org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer"/>    
         </property>    
-        <!--开启事务  -->  
-        <property name="enableTransactionSupport" value="true"></property>  
+        <!-- 开启事务  -->  
+		<!-- <property name="enableTransactionSupport" value="true"></property> -->
     </bean >
     <!-- 配置RedisCacheManager(方法一:spring管理redis缓存配置) -->
     <bean id="redisCacheManager" class="org.springframework.data.redis.cache.RedisCacheManager">
         <constructor-arg name="redisOperations" ref="redisTemplate" />
+        <!-- 是否事务提交 -->
         <property name="transactionAware" value="true" />
+        <!-- 是否使用前缀 -->
         <property name="usePrefix" value="true" />
+        <!-- 默认有效期 -->
         <property name="defaultExpiration" value="${redis.expiration}" />
     </bean>
      <!-- 配置RedisCacheConfig自定义redis的key生成规则 -->

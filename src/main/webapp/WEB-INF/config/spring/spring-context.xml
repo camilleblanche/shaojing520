@@ -112,6 +112,7 @@
         <property name="jobFactory" ref="jobFactory"></property>
         <property name="configLocation" value="/WEB-INF/config/property/quartz.properties"/>           
     </bean>
+	<import resource="spring-shiro.xml"/>
 	<import resource="spring-redis.xml"/>
 	<import resource="spring-task.xml"/>
 	

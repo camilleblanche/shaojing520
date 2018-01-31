@@ -184,9 +184,9 @@
     where USER_ID = #{userId,jdbcType=INTEGER}
   </update>
   
-<resultMap id="UserResult" type="User">
+<resultMap id="UserResult" type="com.camille.shaojing.model.User">
 	<result column="user_id" property="userId"/>
-	<result column="user_name" property="userName"/>
+	<result column="user_name" property="nickName"/>
 	<result column="password" property="password"/>
 </resultMap>
 
