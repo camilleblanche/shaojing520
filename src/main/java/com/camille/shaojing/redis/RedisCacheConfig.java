@@ -11,6 +11,8 @@ import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 
+import com.alibaba.fastjson.JSON;
+
 /**
  * 通过spring管理redis缓存配置
  * @Cacheable(value="",key="#",condition="#")
@@ -59,7 +61,7 @@ public class RedisCacheConfig extends CachingConfigurerSupport {
 		return redisCacheManager;
 	}
 
-	@Bean
+	@Bean()
 	public KeyGenerator customKeyGenerator() {
 		return new KeyGenerator() {
 			@Override
@@ -67,10 +69,13 @@ public class RedisCacheConfig extends CachingConfigurerSupport {
 				//规定 本类名+方法名+参数名 为key
 				StringBuilder sb = new StringBuilder();
 				sb.append(target.getClass().getName());
+				sb.append(".");
 				sb.append(method.getName());
+				sb.append("(");
 				for (Object obj : objects) {
-					sb.append(obj.toString());
+					sb.append(JSON.toJSONString(obj));
 				}
+				sb.append(")");
 				return sb.toString();
 			}
 		};

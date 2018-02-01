@@ -5,6 +5,8 @@ import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Service;
 
 import com.camille.shaojing.dao.IUserDao;
@@ -13,6 +15,7 @@ import com.camille.shaojing.service.IUserService;
 import com.camille.shaojing.util.BaseUtils;
 import com.camille.shaojing.util.CryptographyUtils;
 @Service
+@CacheConfig(cacheNames="user")
 public class UserServiceImpl implements IUserService{
 	@Autowired
 	private IUserDao iUserDao;
@@ -50,6 +53,7 @@ public class UserServiceImpl implements IUserService{
 	}
 
 	@Override
+	@CachePut(keyGenerator = "customKeyGenerator")
 	public Map<String, Object> updateUser(Map<String, Object> map) {
 		Map<String, Object> rtnMap=new HashMap<String, Object>();
 		Object loginPassword = map.get("loginPassword");
@@ -82,5 +86,4 @@ public class UserServiceImpl implements IUserService{
 	public Set<String> getPermissions(String userName) {
 		return iUserDao.getPermissions(userName);
 	}
-
 }
