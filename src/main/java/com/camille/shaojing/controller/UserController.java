@@ -24,6 +24,14 @@ public class UserController {
 	@Autowired
 	private IUserService iUserService;
 	/**
+	 * 初始化页面
+	 * @return
+	 */
+	@RequestMapping(value="/init",method=RequestMethod.GET)
+	public String init() {
+		return "/demo/demo";
+	}
+	/**
 	 * 新增用户
 	 * @param map
 	 * @return
