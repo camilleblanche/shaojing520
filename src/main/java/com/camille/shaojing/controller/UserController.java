@@ -74,7 +74,7 @@ public class UserController {
 		UsernamePasswordToken token=new UsernamePasswordToken(user.getNickName(), user.getLoginPassword());
 		try{
 			subject.login(token);
-			Session session=subject.getSession();
+			Session session=subject.getSession();//会跳到我们自定义的realm中
 			System.out.println("sessionId:"+session.getId());
 			System.out.println("sessionHost:"+session.getHost());
 			System.out.println("sessionTimeout:"+session.getTimeout());
