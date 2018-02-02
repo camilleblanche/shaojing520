@@ -168,44 +168,44 @@
     update sys_user
     <set>
       <if test="account != null">
-        ACCOUNT = #{account,jdbcType=VARCHAR},
+        ACCOUNT = #{account},
       </if>
       <if test="password != null">
-        PASSWORD = #{password,jdbcType=VARCHAR},
+        PASSWORD = #{password},
       </if>
       <if test="nickName != null">
-        NICK_NAME = #{nickName,jdbcType=VARCHAR},
+        NICK_NAME = #{nickName},
       </if>
       <if test="realName != null">
-        REAL_NAME = #{realName,jdbcType=VARCHAR},
+        REAL_NAME = #{realName},
       </if>
       <if test="mobile != null">
-        MOBILE = #{mobile,jdbcType=BIGINT},
+        MOBILE = #{mobile},
       </if>
       <if test="gender != null">
-        GENDER = #{gender,jdbcType=VARCHAR},
+        GENDER = #{gender},
       </if>
       <if test="age != null">
-        AGE = #{age,jdbcType=INTEGER},
+        AGE = #{age},
       </if>
       <if test="email != null">
-        EMAIL = #{email,jdbcType=VARCHAR},
+        EMAIL = #{email},
       </if>
       <if test="address != null">
-        ADDRESS = #{address,jdbcType=VARCHAR},
+        ADDRESS = #{address},
       </if>
       <if test="birthday != null">
-        BIRTHDAY = #{birthday,jdbcType=VARCHAR},
+        BIRTHDAY = #{birthday},
       </if>
       <if test="state != null">
-        STATE = #{state,jdbcType=VARCHAR},
+        STATE = #{state},
       </if>
       <if test="createTime != null">
-        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+        CREATE_TIME = #{createTime},
       </if>
         UPDATE_TIME = NOW(),
     </set>
-    where USER_ID = #{userId,jdbcType=INTEGER}
+    where USER_ID = #{userId}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.camille.shaojing.model.User">
     update sys_user
