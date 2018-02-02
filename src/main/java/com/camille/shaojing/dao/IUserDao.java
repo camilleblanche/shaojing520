@@ -25,23 +25,23 @@ public interface IUserDao {
 	 */
 	int updateUser(Map<String, Object> map);
 	/**
-	 * 通过用户名查询用户
+	 * 通过账号查询用户
 	 * @param userName
 	 * @return
 	 */
-	User getByUserName(String userName);
+	User getUserByAccount(String account);
 	
 	/**
-	 * 通过用户名查询角色信息
+	 * 通过账号查询角色信息
 	 * @param userName
 	 * @return
 	 */
-	Set<String> getRoles(String userName);
+	Set<String> getRoleSetByAccount(String account);
 	
 	/**
-	 * 通过用户名查询权限信息
+	 * 通过账号查询权限信息
 	 * @param userName
 	 * @return
 	 */
-	Set<String> getPermissions(String userName);
+	Set<String> getPermissionSetByAccount(String account);
 }

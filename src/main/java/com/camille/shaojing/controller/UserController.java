@@ -4,6 +4,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
@@ -17,10 +19,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.camille.shaojing.model.User;
 import com.camille.shaojing.service.IUserService;
+import com.camille.shaojing.util.CryptographyUtils;
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
+	private static Log LOG = LogFactory.getLog(UserController.class);
 	@Autowired
 	private IUserService iUserService;
 	/**
@@ -71,13 +75,14 @@ public class UserController {
 	@RequestMapping("/login")
 	public String login(User user,HttpServletRequest request){
 		Subject subject=SecurityUtils.getSubject();
-		UsernamePasswordToken token=new UsernamePasswordToken(user.getNickName(), user.getLoginPassword());
+		String passwordEn = CryptographyUtils.shiroMd5(user.getPassword());
+		UsernamePasswordToken token=new UsernamePasswordToken(user.getAccount(), passwordEn);
 		try{
-			subject.login(token);
-			Session session=subject.getSession();//会跳到我们自定义的realm中
-			System.out.println("sessionId:"+session.getId());
-			System.out.println("sessionHost:"+session.getHost());
-			System.out.println("sessionTimeout:"+session.getTimeout());
+			subject.login(token);//会跳到自定义realm中
+			Session session=subject.getSession();
+			LOG.info("sessionId:"+session.getId());
+			LOG.info("sessionHost:"+session.getHost());
+			LOG.info("sessionTimeout:"+session.getTimeout());
 			session.setAttribute("info", "session的数据");
 			return "redirect:/success.jsp";
 		}catch(Exception e){

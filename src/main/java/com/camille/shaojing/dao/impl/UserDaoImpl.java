@@ -29,18 +29,18 @@ public class UserDaoImpl implements IUserDao{
 	}
 
 	@Override
-	public User getByUserName(String userName) {
-		return userMapper.getByUserName(userName);
+	public User getUserByAccount(String account) {
+		return userMapper.getUserByAccount(account);
 	}
 
 	@Override
-	public Set<String> getRoles(String userName) {
-		return userMapper.getRoles(userName);
+	public Set<String> getRoleSetByAccount(String account) {
+		return userMapper.getRoleSetByAccount(account);
 	}
 
 	@Override
-	public Set<String> getPermissions(String userName) {
-		return userMapper.getPermissions(userName);
+	public Set<String> getPermissionSetByAccount(String account) {
+		return userMapper.getPermissionSetByAccount(account);
 	}
 
 }

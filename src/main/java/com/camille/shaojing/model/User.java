@@ -1,34 +1,31 @@
 package com.camille.shaojing.model;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class User implements Serializable{
-    private static final long serialVersionUID = -8962340411923016828L;
+public class User {
+    private Integer userId;
 
-	private Integer userId;
+    private String account;
 
-    private String loginPassword;
+    private String password;
 
     private String nickName;
 
     private String realName;
 
-    private Integer phoneNumber;
+    private Long mobile;
 
     private String gender;
 
-    private String eMail;
+    private Integer age;
+
+    private String email;
 
     private String address;
 
-    private String loveState;
-
-    private Integer age;
-
     private String birthday;
 
-    private String accountState;
+    private String state;
 
     private Date createTime;
 
@@ -42,12 +39,20 @@ public class User implements Serializable{
         this.userId = userId;
     }
 
-    public String getLoginPassword() {
-        return loginPassword;
+    public String getAccount() {
+        return account;
     }
 
-    public void setLoginPassword(String loginPassword) {
-        this.loginPassword = loginPassword == null ? null : loginPassword.trim();
+    public void setAccount(String account) {
+        this.account = account == null ? null : account.trim();
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password == null ? null : password.trim();
     }
 
     public String getNickName() {
@@ -66,12 +71,12 @@ public class User implements Serializable{
         this.realName = realName == null ? null : realName.trim();
     }
 
-    public Integer getPhoneNumber() {
-        return phoneNumber;
+    public Long getMobile() {
+        return mobile;
     }
 
-    public void setPhoneNumber(Integer phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setMobile(Long mobile) {
+        this.mobile = mobile;
     }
 
     public String getGender() {
@@ -82,12 +87,20 @@ public class User implements Serializable{
         this.gender = gender == null ? null : gender.trim();
     }
 
-    public String geteMail() {
-        return eMail;
+    public Integer getAge() {
+        return age;
     }
 
-    public void seteMail(String eMail) {
-        this.eMail = eMail == null ? null : eMail.trim();
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email == null ? null : email.trim();
     }
 
     public String getAddress() {
@@ -98,22 +111,6 @@ public class User implements Serializable{
         this.address = address == null ? null : address.trim();
     }
 
-    public String getLoveState() {
-        return loveState;
-    }
-
-    public void setLoveState(String loveState) {
-        this.loveState = loveState == null ? null : loveState.trim();
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
     public String getBirthday() {
         return birthday;
     }
@@ -122,12 +119,12 @@ public class User implements Serializable{
         this.birthday = birthday == null ? null : birthday.trim();
     }
 
-    public String getAccountState() {
-        return accountState;
+    public String getState() {
+        return state;
     }
 
-    public void setAccountState(String accountState) {
-        this.accountState = accountState == null ? null : accountState.trim();
+    public void setState(String state) {
+        this.state = state == null ? null : state.trim();
     }
 
     public Date getCreateTime() {

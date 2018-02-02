@@ -18,13 +18,13 @@ public class CustomizeRealm extends AuthorizingRealm{
 	private IUserService iUserService;
 	@Override
 	/**
-	 * 为当限前登录的用户授予角色和权限
+	 * 为当前登录的用户授予角色和权限
 	 */
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-		String userName=(String)principals.getPrimaryPrincipal();
+		String account=(String)principals.getPrimaryPrincipal();
 		SimpleAuthorizationInfo authorizationInfo=new SimpleAuthorizationInfo();
-		authorizationInfo.setRoles(iUserService.getRoles(userName));
-		authorizationInfo.setStringPermissions(iUserService.getPermissions(userName));
+		authorizationInfo.setRoles(iUserService.getRoleSetByAccount(account));
+		authorizationInfo.setStringPermissions(iUserService.getPermissionSetByAccount(account));
 		return authorizationInfo;
 	}
 
@@ -33,10 +33,10 @@ public class CustomizeRealm extends AuthorizingRealm{
 	 * 验证当前登录的用户
 	 */
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-		String userName=(String)token.getPrincipal();
-		User user=iUserService.getByUserName(userName);
+		String account=(String)token.getPrincipal();
+		User user=iUserService.getUserByAccount(account);
 		if(user!=null){
-			AuthenticationInfo authcInfo=new SimpleAuthenticationInfo(user.getNickName(),user.getLoginPassword(),"realmName");
+			AuthenticationInfo authcInfo=new SimpleAuthenticationInfo(user.getAccount(),user.getPassword(),"realmName");
 			return authcInfo;
 		}else{
 			return null;				

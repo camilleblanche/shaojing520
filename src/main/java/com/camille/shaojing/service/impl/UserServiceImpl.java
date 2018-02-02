@@ -6,7 +6,7 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.camille.shaojing.dao.IUserDao;
@@ -22,10 +22,10 @@ public class UserServiceImpl implements IUserService{
 	@Override
 	public Map<String, Object> addUser(Map<String, Object> map) {
 		Map<String, Object> rtnMap=new HashMap<String, Object>();
-		Object loginPassword = map.get("loginPassword");
-		if(BaseUtils.isNotNull(loginPassword)) {
-			String loginPasswordEn = CryptographyUtils.springMd5Encode(loginPassword.toString());
-			map.put("loginPassword", loginPasswordEn);
+		Object password = map.get("password");
+		if(BaseUtils.isNotNull(password)) {
+			String passwordEn = CryptographyUtils.shiroMd5(password.toString());
+			map.put("loginPassword", passwordEn);
 		}
 		int result=iUserDao.addUser(map);
 		if(result==1) {
@@ -53,13 +53,12 @@ public class UserServiceImpl implements IUserService{
 	}
 
 	@Override
-	@CachePut(keyGenerator = "customKeyGenerator")
 	public Map<String, Object> updateUser(Map<String, Object> map) {
 		Map<String, Object> rtnMap=new HashMap<String, Object>();
-		Object loginPassword = map.get("loginPassword");
-		if(BaseUtils.isNotNull(loginPassword)) {
-			String loginPasswordEn = CryptographyUtils.springMd5Encode(loginPassword.toString());
-			map.put("loginPassword", loginPasswordEn);
+		Object password = map.get("password");
+		if(BaseUtils.isNotNull(password)) {
+			String passwordEn = CryptographyUtils.shiroMd5(password.toString());
+			map.put("loginPassword", passwordEn);
 		}
 		int result=iUserDao.updateUser(map);
 		if(result==1) {
@@ -73,17 +72,20 @@ public class UserServiceImpl implements IUserService{
 	}
 
 	@Override
-	public User getByUserName(String userName) {
-		return iUserDao.getByUserName(userName);
+	@Cacheable(keyGenerator = "customKeyGenerator")
+	public User getUserByAccount(String account) {
+		return iUserDao.getUserByAccount(account);
 	}
 
 	@Override
-	public Set<String> getRoles(String userName) {
-		return iUserDao.getRoles(userName);
+	@Cacheable(keyGenerator = "customKeyGenerator")
+	public Set<String> getRoleSetByAccount(String account) {
+		return iUserDao.getRoleSetByAccount(account);
 	}
 
 	@Override
-	public Set<String> getPermissions(String userName) {
-		return iUserDao.getPermissions(userName);
+	@Cacheable(keyGenerator = "customKeyGenerator")
+	public Set<String> getPermissionSetByAccount(String account) {
+		return iUserDao.getPermissionSetByAccount(account);
 	}
 }

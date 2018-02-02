@@ -18,9 +18,9 @@ public interface UserMapper {
 
     int updateByPrimaryKey(User record);
     
-	User getByUserName(String userName);
+	User getUserByAccount(String account);
 	
-	Set<String> getRoles(String userName);
+	Set<String> getRoleSetByAccount(String account);
 	
-	Set<String> getPermissions(String userName);
+	Set<String> getPermissionSetByAccount(String account);
 }
