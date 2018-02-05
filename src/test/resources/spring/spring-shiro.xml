@@ -16,6 +16,8 @@
         <!-- 自定义realm -->
         <property name="realm" ref="customizeRealm"/> 
     </bean>
+    <!-- 自定义Realm -->
+	<bean id="customizeRealm" class="com.camille.shaojing.shiro.CustomizeRealm"/>  
     <!-- session管理 -->
     <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
         <property name="globalSessionTimeout" value="1800000"></property>
@@ -34,8 +36,6 @@
         <property name="path" value="/" />
         <property name="httpOnly" value="true"/>
     </bean>
-    <!-- 自定义Realm -->
-	<bean id="customizeRealm" class="com.camille.shaojing.shiro.CustomizeRealm"/>  
     <!-- Shiro过滤器 -->
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">  
 	    <!-- Shiro的核心安全接口,这个属性是必须的 -->  
@@ -47,6 +47,7 @@
 	    <!-- Shiro连接约束配置,即过滤链的定义 -->  
 	    <property name="filterChainDefinitions">  
 	        <value>  
+	        	/resources/** = anon
 	            /index.jsp = anon  
 	            /unauthorized.jsp = anon  
 	            /login.jsp = authc  
@@ -57,10 +58,12 @@
 	</bean>  
 	<!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->  
 	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>  
-	<!-- 开启Shiro注解 -->
-	<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor"/>  
+	<!-- AOP式方法级权限检查 -->
+	<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor">
+		<property name="proxyTargetClass" value="true" />
+	</bean>  
   	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">  
-  	  <property name="securityManager" ref="securityManager"/>  
+  		<property name="securityManager" ref="securityManager"/>  
     </bean>
     <!--redis开始 -->
      <!-- 自定义sessionDao -->
