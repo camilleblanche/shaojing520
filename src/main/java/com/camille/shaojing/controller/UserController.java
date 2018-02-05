@@ -92,7 +92,7 @@ public class UserController {
 		}catch (UnknownAccountException e) {
 			e.printStackTrace();
 			request.setAttribute("user", user);
-			request.setAttribute("errorMsg", e.getMessage());
+			request.setAttribute("errorMsg", "账号不存在");
 			return "index";
 		}catch (IncorrectCredentialsException e) {
 			e.printStackTrace();
@@ -108,6 +108,11 @@ public class UserController {
 			e.printStackTrace();
 			request.setAttribute("user", user);
 			request.setAttribute("errorMsg", "账户验证失败");
+			return "index";
+		}catch (Exception e) {
+			e.printStackTrace();
+			request.setAttribute("user", user);
+			request.setAttribute("errorMsg", "服务异常");
 			return "index";
 		}
 	}
