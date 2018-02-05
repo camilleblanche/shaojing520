@@ -7,6 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.LockedAccountException;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
@@ -85,10 +89,25 @@ public class UserController {
 			LOG.info("sessionTimeout:"+session.getTimeout());
 			session.setAttribute("info", "session的数据");
 			return "redirect:/success.jsp";
-		}catch(Exception e){
+		}catch (UnknownAccountException e) {
 			e.printStackTrace();
 			request.setAttribute("user", user);
-			request.setAttribute("errorMsg", "用户名或密码错误！");
+			request.setAttribute("errorMsg", e.getMessage());
+			return "index";
+		}catch (IncorrectCredentialsException e) {
+			e.printStackTrace();
+			request.setAttribute("user", user);
+			request.setAttribute("errorMsg", "账号或密码不正确");
+			return "index";
+		}catch (LockedAccountException e) {
+			e.printStackTrace();
+			request.setAttribute("user", user);
+			request.setAttribute("errorMsg", "账号已被锁定,请联系管理员");
+			return "index";
+		}catch (AuthenticationException e) {
+			e.printStackTrace();
+			request.setAttribute("user", user);
+			request.setAttribute("errorMsg", "账户验证失败");
 			return "index";
 		}
 	}
