@@ -1,9 +1,12 @@
 package com.camille.shaojing.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class User {
-    private Long userId;
+public class User implements Serializable{
+    private static final long serialVersionUID = -8212060554871468224L;
+
+	private Long userId;
 
     private String account;
 
