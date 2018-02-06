@@ -30,11 +30,11 @@ public class UserServiceImpl implements IUserService{
 		}
 		int result=iUserDao.addUser(user);
 		if(result==1) {
-			rtnMap.put("success",true);
-			rtnMap.put("message","新增用户成功");
+			rtnMap.put("code",0);
+			rtnMap.put("msg","新增用户成功");
 		}else {
-			rtnMap.put("success",false);
-			rtnMap.put("message","新增用户失败");
+			rtnMap.put("code",500);
+			rtnMap.put("msg","新增用户失败");
 		}
 		return rtnMap;
 	}
@@ -44,11 +44,11 @@ public class UserServiceImpl implements IUserService{
 		Map<String, Object> rtnMap=new HashMap<String, Object>();
 		int result=iUserDao.deleteUser(userIds);
 		if(result>=1) {
-			rtnMap.put("success",true);
-			rtnMap.put("message","删除用户成功");
+			rtnMap.put("code",0);
+			rtnMap.put("msg","删除用户成功");
 		}else {
-			rtnMap.put("success",false);
-			rtnMap.put("message","删除用户失败");
+			rtnMap.put("code",500);
+			rtnMap.put("msg","删除用户失败");
 		}
 		return rtnMap;
 	}
@@ -63,11 +63,11 @@ public class UserServiceImpl implements IUserService{
 		}
 		int result=iUserDao.updateUser(user);
 		if(result==1) {
-			rtnMap.put("success",true);
-			rtnMap.put("message","修改用户成功");
+			rtnMap.put("code",0);
+			rtnMap.put("msg","修改用户成功");
 		}else {
-			rtnMap.put("success",false);
-			rtnMap.put("message","修改用户失败");
+			rtnMap.put("code",500);
+			rtnMap.put("msg","修改用户失败");
 		}
 		return rtnMap;
 	}

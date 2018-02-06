@@ -43,7 +43,7 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping(value="/adduser",method=RequestMethod.POST)
 	public R addUser(@RequestBody User user){
-		return R.ok(iUserService.addUser(user));
+		return R.put(iUserService.addUser(user));
 	}
 	/**
 	 * 删除用户
@@ -53,7 +53,7 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping(value="/deleteuser",method=RequestMethod.POST)
 	public R deleteUser(@RequestBody Long[] userIds){
-		return R.ok(iUserService.deleteUser(userIds));
+		return R.put(iUserService.deleteUser(userIds));
 	}
 	/**
 	 * 修改用户
@@ -63,7 +63,7 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping(value="/updateuser",method=RequestMethod.POST)
 	public R updateUser(@RequestBody User user){
-		return R.ok(iUserService.updateUser(user));
+		return R.put(iUserService.updateUser(user));
 	}
 
 	/**
