@@ -1,6 +1,7 @@
 package com.camille.shaojing.service.impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -23,9 +24,9 @@ public class UserServiceImpl implements IUserService{
 	public Map<String, Object> addUser(Map<String, Object> map) {
 		Map<String, Object> rtnMap=new HashMap<String, Object>();
 		Object password = map.get("password");
-		if(BaseUtils.isNotNull(password)) {
+		if(!BaseUtils.isBlank(password)) {
 			String passwordEn = CryptographyUtils.shiroMd5(password.toString());
-			map.put("loginPassword", passwordEn);
+			map.put("password", passwordEn);
 		}
 		int result=iUserDao.addUser(map);
 		if(result==1) {
@@ -56,9 +57,9 @@ public class UserServiceImpl implements IUserService{
 	public Map<String, Object> updateUser(Map<String, Object> map) {
 		Map<String, Object> rtnMap=new HashMap<String, Object>();
 		Object password = map.get("password");
-		if(BaseUtils.isNotNull(password)) {
+		if(!BaseUtils.isBlank(password)) {
 			String passwordEn = CryptographyUtils.shiroMd5(password.toString());
-			map.put("loginPassword", passwordEn);
+			map.put("password", passwordEn);
 		}
 		int result=iUserDao.updateUser(map);
 		if(result==1) {
@@ -79,13 +80,13 @@ public class UserServiceImpl implements IUserService{
 
 	@Override
 	@Cacheable(keyGenerator = "customKeyGenerator")
-	public Set<String> getRoleSetByAccount(String account) {
-		return iUserDao.getRoleSetByAccount(account);
+	public Set<String> getRoleSetByUserId(Long userId) {
+		return iUserDao.getRoleSetByUserId(userId);
 	}
 
 	@Override
 	@Cacheable(keyGenerator = "customKeyGenerator")
-	public Set<String> getPermissionSetByAccount(String account) {
-		return iUserDao.getPermissionSetByAccount(account);
+	public List<String> getPermissionListByUserId(Long userId) {
+		return iUserDao.getPermissionListByUserId(userId);
 	}
 }

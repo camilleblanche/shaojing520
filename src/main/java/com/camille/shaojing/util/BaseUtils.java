@@ -6,9 +6,9 @@ public class BaseUtils {
 	 * @param obj
 	 * @return
 	 */
-	public static boolean isNotNull(Object obj) {
+	public static boolean isBlank(Object obj) {
 		boolean rtnFlag=false;
-		if(obj!=null&&!"".equals(obj)) {
+		if(obj==null||"".equals(obj)) {
 			rtnFlag=true;
 		}
 		return rtnFlag;

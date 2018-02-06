@@ -1,5 +1,6 @@
 package com.camille.shaojing.mapper;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -12,7 +13,7 @@ public interface UserMapper {
 
     int insertSelective(Map<String, Object> map);
 
-    User selectByPrimaryKey(Integer userId);
+    User selectByPrimaryKey(Long userId);
 
     int updateByPrimaryKeySelective(Map<String, Object> map);
 
@@ -20,7 +21,7 @@ public interface UserMapper {
     
 	User getUserByAccount(String account);
 	
-	Set<String> getRoleSetByAccount(String account);
+	Set<String> getRoleSetByUserId(Long userId);
 	
-	Set<String> getPermissionSetByAccount(String account);
+	List<String> getPermissionListByUserId(Long userId);
 }

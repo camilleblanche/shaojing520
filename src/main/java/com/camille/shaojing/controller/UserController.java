@@ -92,27 +92,22 @@ public class UserController {
 		}catch (UnknownAccountException e) {
 			e.printStackTrace();
 			request.setAttribute("user", user);
-			request.setAttribute("errorMsg", "账号不存在");
+			request.setAttribute("errorMsg", e.getMessage());
 			return "index";
 		}catch (IncorrectCredentialsException e) {
 			e.printStackTrace();
 			request.setAttribute("user", user);
-			request.setAttribute("errorMsg", "账号或密码不正确");
+			request.setAttribute("errorMsg", e.getMessage());
 			return "index";
 		}catch (LockedAccountException e) {
 			e.printStackTrace();
 			request.setAttribute("user", user);
-			request.setAttribute("errorMsg", "账号已被锁定,请联系管理员");
+			request.setAttribute("errorMsg", e.getMessage());
 			return "index";
 		}catch (AuthenticationException e) {
 			e.printStackTrace();
 			request.setAttribute("user", user);
 			request.setAttribute("errorMsg", "账户验证失败");
-			return "index";
-		}catch (Exception e) {
-			e.printStackTrace();
-			request.setAttribute("user", user);
-			request.setAttribute("errorMsg", "服务异常");
 			return "index";
 		}
 	}

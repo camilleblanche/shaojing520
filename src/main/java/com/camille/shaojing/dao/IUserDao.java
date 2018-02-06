@@ -1,5 +1,6 @@
 package com.camille.shaojing.dao;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -30,18 +31,17 @@ public interface IUserDao {
 	 * @return
 	 */
 	User getUserByAccount(String account);
-	
 	/**
-	 * 通过账号查询角色信息
-	 * @param userName
+	 * 通过userId查询角色信息
+	 * @param userId
 	 * @return
 	 */
-	Set<String> getRoleSetByAccount(String account);
+	Set<String> getRoleSetByUserId(Long userId);
 	
 	/**
-	 * 通过账号查询权限信息
-	 * @param userName
+	 * 通过userId查询权限信息
+	 * @param userId
 	 * @return
 	 */
-	Set<String> getPermissionSetByAccount(String account);
+	List<String> getPermissionListByUserId(Long userId);
 }

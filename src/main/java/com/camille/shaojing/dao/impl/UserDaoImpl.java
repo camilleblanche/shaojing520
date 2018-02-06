@@ -1,5 +1,6 @@
 package com.camille.shaojing.dao.impl;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -34,13 +35,13 @@ public class UserDaoImpl implements IUserDao{
 	}
 
 	@Override
-	public Set<String> getRoleSetByAccount(String account) {
-		return userMapper.getRoleSetByAccount(account);
+	public Set<String> getRoleSetByUserId(Long userId) {
+		return userMapper.getRoleSetByUserId(userId);
 	}
 
 	@Override
-	public Set<String> getPermissionSetByAccount(String account) {
-		return userMapper.getPermissionSetByAccount(account);
+	public List<String> getPermissionListByUserId(Long userId) {
+		return userMapper.getPermissionListByUserId(userId);
 	}
 
 }
