@@ -1,11 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="../common/form.jsp"%>
-<html>
-<head>
-<title>demo</title>
+<%@ include file="../common/header.jsp"%>
+<title>栗子</title>
 </head>
 <body>
-<div id="updateBtn">click to update</div>
+<button id="updateBtn">click to update</button>
 </body>
 <script type="text/javascript">
 $(function(){
@@ -16,7 +14,7 @@ $("#updateBtn").click(function(){
 	var $this=this;
 	var param = {
 		"userId" : 1,
-		"loginPassword":"Jing0109"
+		"password":"Jing0109"
 	};
 	$.ajax( {
 		'type' : 'POST',

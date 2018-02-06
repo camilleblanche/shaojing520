@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.camille.shaojing.sqlmapper.UserMapper">
+<mapper namespace="com.camille.shaojing.mapper.UserMapper">
   <resultMap id="BaseResultMap" type="com.camille.shaojing.model.User">
     <id column="USER_ID" jdbcType="INTEGER" property="userId" />
     <result column="ACCOUNT" jdbcType="VARCHAR" property="account" />
@@ -65,11 +65,11 @@
 	AND sr.ROLE_ID = srm.ROLE_ID
 	AND srm.MENU_ID = sm.MENU_ID
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="map">
     delete from sys_user
     where USER_ID = #{userId}
   </delete>
-  <insert id="insert" parameterType="com.camille.shaojing.model.User">
+  <insert id="insert" parameterType="map">
     insert into sys_user (USER_ID, ACCOUNT, PASSWORD, 
       NICK_NAME, REAL_NAME, MOBILE, 
       GENDER, AGE, EMAIL, 
@@ -164,7 +164,7 @@
      	NOW(),
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.camille.shaojing.model.User">
+  <update id="updateByPrimaryKeySelective" parameterType="map">
     update sys_user
     <set>
       <if test="account != null">
