@@ -40,19 +40,24 @@
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">  
 	    <!-- Shiro的核心安全接口,这个属性是必须的 -->  
 	    <property name="securityManager" ref="securityManager"/>
-	    <!-- 身份认证失败，则跳转到登录页面的配置 -->  
-	    <property name="loginUrl" value="/index.jsp"/>
-	    <!-- 权限认证失败，则跳转到指定页面 -->  
+	    <!-- 身份认证失败，则跳转到登录页面 -->  
+	    <property name="loginUrl" value="/login.jsp"/>
+	    <!-- 权限认证失败，则跳转到未授权页面 -->  
 	    <property name="unauthorizedUrl" value="/unauthor.jsp"/>  
+	    <!-- 登录成功,则跳转到首页 -->  
+	    <property name="successUrl" value="/homepage/init"/>
 	    <!-- Shiro连接约束配置,即过滤链的定义 -->  
 	    <property name="filterChainDefinitions">  
 	        <value>  
 	        	/resources/** = anon
-	            /index.jsp = anon  
-	            /unauthorized.jsp = anon  
-	            /login.jsp = authc  
-	            /logout = logout  
-	            /** = user 
+	            /index.jsp = anon
+	            /unauthorized.jsp = anon
+	            /login.jsp = anon
+	            /user/login = anon
+	            <!-- 生成图形验证码 -->
+	            /verifyCode/generateVerifyCodeImg = anon
+	            /logout = logout 
+	            /** = authc
 	        </value>  
 	    </property>
 	</bean>  
