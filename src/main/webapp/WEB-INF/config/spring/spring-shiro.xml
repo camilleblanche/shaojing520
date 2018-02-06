@@ -55,7 +55,7 @@
 	            /login.jsp = anon
 	            /user/login = anon
 	            <!-- 生成图形验证码 -->
-	            /verifyCode/generateVerifyCodeImg = anon
+	            /captcha.jpg=anon
 	            /logout = logout 
 	            /** = authc
 	        </value>  

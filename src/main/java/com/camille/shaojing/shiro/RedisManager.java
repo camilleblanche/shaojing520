@@ -18,10 +18,9 @@ public class RedisManager {
 	@Value("${redis.password}")
 	private String password;
 	// 0 - never expire
-	private int expire = 0;
-
-	// timeout for jedis try to connect to redis server, not expire time! In
-	// milliseconds
+	@Value("${redis.expiration}")
+	private int expire;
+	// timeout for jedis try to connect to redis server, not expire time! In milliseconds
 	private int timeout = 2000;
 
 	private static JedisPool jedisPool = null;

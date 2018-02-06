@@ -23,8 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("/verifyCode")
-public class VerifyCodeUtils {
+public class CaptchaUtils {
 	
 	private static final Random rn=new Random();
 	
@@ -41,7 +40,7 @@ public class VerifyCodeUtils {
 	 * @throws ServletException
 	 * @throws IOException
 	 */
-	@RequestMapping(value = "/generateVerifyCodeImg",method = RequestMethod.GET)
+	@RequestMapping(value = "/captcha.jpg",method = RequestMethod.GET)
 	public void generateVerifyCodeImg(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		//设置响应方式为图片类型

@@ -1,11 +1,7 @@
 package com.camille.shaojing.controller;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -21,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.camille.shaojing.model.R;
 import com.camille.shaojing.model.User;
 import com.camille.shaojing.service.IUserService;
 import com.camille.shaojing.util.CryptographyUtils;
@@ -28,7 +25,6 @@ import com.camille.shaojing.util.CryptographyUtils;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-	private static Log LOG = LogFactory.getLog(UserController.class);
 	@Autowired
 	private IUserService iUserService;
 	/**
@@ -46,8 +42,8 @@ public class UserController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="/adduser",method=RequestMethod.POST)
-	public Map<String, Object> addUser(@RequestBody User user){
-		return iUserService.addUser(user);
+	public R addUser(@RequestBody User user){
+		return R.ok(iUserService.addUser(user));
 	}
 	/**
 	 * 删除用户
@@ -56,8 +52,8 @@ public class UserController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="/deleteuser",method=RequestMethod.POST)
-	public Map<String, Object> deleteUser(@RequestBody Long[] userIds){
-		return iUserService.deleteUser(userIds);
+	public R deleteUser(@RequestBody Long[] userIds){
+		return R.ok(iUserService.deleteUser(userIds));
 	}
 	/**
 	 * 修改用户
@@ -66,8 +62,8 @@ public class UserController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="/updateuser",method=RequestMethod.POST)
-	public Map<String, Object> updateUser(@RequestBody User user){
-		return iUserService.updateUser(user);
+	public R updateUser(@RequestBody User user){
+		return R.ok(iUserService.updateUser(user));
 	}
 
 	/**
@@ -76,39 +72,35 @@ public class UserController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/login")
-	public String login(User user,HttpServletRequest request){
+	@RequestMapping(value="/login",method=RequestMethod.POST)
+	public R login(@RequestBody User user,HttpServletRequest request){
 		Subject subject=SecurityUtils.getSubject();
+		String account=user.getAccount();
 		String passwordEn = CryptographyUtils.shiroMd5(user.getPassword());
-		UsernamePasswordToken token=new UsernamePasswordToken(user.getAccount(), passwordEn);
+		UsernamePasswordToken token=new UsernamePasswordToken(account, passwordEn);
 		try{
 			subject.login(token);//会跳到自定义realm中
-			Session session=subject.getSession();
-			LOG.info("sessionId:"+session.getId());
-			LOG.info("sessionHost:"+session.getHost());
-			LOG.info("sessionTimeout:"+session.getTimeout());
-			session.setAttribute("info", "session的数据");
-			return "redirect:/success.jsp";
+			Session session=subject.getSession();//包含sessionId,hostAddress,timeout等信息
+			session.setAttribute("user", iUserService.getUserByAccount(account));
+			return R.ok();
 		}catch (UnknownAccountException e) {
-			e.printStackTrace();
-			request.setAttribute("user", user);
-			request.setAttribute("errorMsg", e.getMessage());
-			return "index";
+			return R.error(e.getMessage());
 		}catch (IncorrectCredentialsException e) {
-			e.printStackTrace();
-			request.setAttribute("user", user);
-			request.setAttribute("errorMsg", e.getMessage());
-			return "index";
+			return R.error(e.getMessage());
 		}catch (LockedAccountException e) {
-			e.printStackTrace();
-			request.setAttribute("user", user);
-			request.setAttribute("errorMsg", e.getMessage());
-			return "index";
+			return R.error(e.getMessage());
 		}catch (AuthenticationException e) {
-			e.printStackTrace();
-			request.setAttribute("user", user);
-			request.setAttribute("errorMsg", "账户验证失败");
-			return "index";
+			return R.error("账户验证失败");
 		}
+	}
+	/**
+	 * 用户退出
+	 * @return
+	 */
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logout() {
+		Subject subject = SecurityUtils.getSubject();
+		subject.logout();
+		return "redirect:login.jsp";
 	}
 }
