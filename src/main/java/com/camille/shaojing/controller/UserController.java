@@ -46,8 +46,8 @@ public class UserController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="/adduser",method=RequestMethod.POST)
-	public Map<String, Object> addUser(@RequestBody Map<String, Object> map){
-		return iUserService.addUser(map);
+	public Map<String, Object> addUser(@RequestBody User user){
+		return iUserService.addUser(user);
 	}
 	/**
 	 * 删除用户
@@ -56,8 +56,8 @@ public class UserController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="/deleteuser",method=RequestMethod.POST)
-	public Map<String, Object> deleteUser(@RequestBody Map<String, Object> map){
-		return iUserService.deleteUser(map);
+	public Map<String, Object> deleteUser(@RequestBody Long[] userIds){
+		return iUserService.deleteUser(userIds);
 	}
 	/**
 	 * 修改用户
@@ -66,8 +66,8 @@ public class UserController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="/updateuser",method=RequestMethod.POST)
-	public Map<String, Object> updateUser(@RequestBody Map<String, Object> map){
-		return iUserService.updateUser(map);
+	public Map<String, Object> updateUser(@RequestBody User user){
+		return iUserService.updateUser(user);
 	}
 
 	/**

@@ -21,14 +21,14 @@ public class UserServiceImpl implements IUserService{
 	@Autowired
 	private IUserDao iUserDao;
 	@Override
-	public Map<String, Object> addUser(Map<String, Object> map) {
+	public Map<String, Object> addUser(User user) {
 		Map<String, Object> rtnMap=new HashMap<String, Object>();
-		Object password = map.get("password");
+		String password = user.getPassword();
 		if(!BaseUtils.isBlank(password)) {
 			String passwordEn = CryptographyUtils.shiroMd5(password.toString());
-			map.put("password", passwordEn);
+			user.setPassword(passwordEn);
 		}
-		int result=iUserDao.addUser(map);
+		int result=iUserDao.addUser(user);
 		if(result==1) {
 			rtnMap.put("success",true);
 			rtnMap.put("message","新增用户成功");
@@ -40,10 +40,10 @@ public class UserServiceImpl implements IUserService{
 	}
 
 	@Override
-	public Map<String, Object> deleteUser(Map<String, Object> map) {
+	public Map<String, Object> deleteUser(Long[] userIds) {
 		Map<String, Object> rtnMap=new HashMap<String, Object>();
-		int result=iUserDao.deleteUser(map);
-		if(result==1) {
+		int result=iUserDao.deleteUser(userIds);
+		if(result>=1) {
 			rtnMap.put("success",true);
 			rtnMap.put("message","删除用户成功");
 		}else {
@@ -54,14 +54,14 @@ public class UserServiceImpl implements IUserService{
 	}
 
 	@Override
-	public Map<String, Object> updateUser(Map<String, Object> map) {
+	public Map<String, Object> updateUser(User user) {
 		Map<String, Object> rtnMap=new HashMap<String, Object>();
-		Object password = map.get("password");
+		String password = user.getPassword();
 		if(!BaseUtils.isBlank(password)) {
 			String passwordEn = CryptographyUtils.shiroMd5(password.toString());
-			map.put("password", passwordEn);
+			user.setPassword(passwordEn);
 		}
-		int result=iUserDao.updateUser(map);
+		int result=iUserDao.updateUser(user);
 		if(result==1) {
 			rtnMap.put("success",true);
 			rtnMap.put("message","修改用户成功");

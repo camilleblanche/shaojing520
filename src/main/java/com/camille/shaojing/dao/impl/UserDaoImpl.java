@@ -1,7 +1,6 @@
 package com.camille.shaojing.dao.impl;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,18 +14,18 @@ public class UserDaoImpl implements IUserDao{
 	@Autowired
 	private UserMapper userMapper;
 	@Override
-	public int addUser(Map<String, Object> map) {
-		return userMapper.insertSelective(map);
+	public int addUser(User user) {
+		return userMapper.insertSelective(user);
 	}
 
 	@Override
-	public int deleteUser(Map<String, Object> map) {
-		return userMapper.deleteByPrimaryKey(map);
+	public int deleteUser(Long[] userIds) {
+		return userMapper.deleteBatch(userIds);
 	}
 
 	@Override
-	public int updateUser(Map<String, Object> map) {
-		return userMapper.updateByPrimaryKeySelective(map);
+	public int updateUser(User user) {
+		return userMapper.updateByPrimaryKeySelective(user);
 	}
 
 	@Override

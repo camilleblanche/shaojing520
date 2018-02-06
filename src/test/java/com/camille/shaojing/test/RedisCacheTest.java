@@ -1,8 +1,5 @@
 package com.camille.shaojing.test;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +18,6 @@ public class RedisCacheTest extends AbstractJUnit4SpringContextTests {
 	private IUserService iUserService;
 	@Test
 	public void redisCacheTest() {
-		Map<String, Object> map=new HashMap<String, Object>();
-		map.put("userId", 1);
-		map.put("loginPassword", "Jing0109");
-		iUserService.updateUser(map);
+		iUserService.getRoleSetByUserId(27L);
 	}
 }
