@@ -38,7 +38,7 @@ public class ObjectUtils {
 						// 根据目标属性获取来源对象get属性的方法
 						fromMethod = from.getClass().getSuperclass().getDeclaredMethod("get" + methodFiled);
 					} catch (Exception ex) {
-						LOG.info("转换类型获取方法异常" + targetField.getName(),ex);
+						LOG.info("转换类型获取方法异常" + targetField.getName(), ex);
 						Class<?>[] interfaces = from.getClass().getInterfaces();
 						for (Class<?> interfaceClass : interfaces) {
 							try {
