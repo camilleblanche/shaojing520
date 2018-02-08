@@ -31,7 +31,7 @@ public class UserController {
 	 * 初始化页面
 	 * @return
 	 */
-	@RequestMapping(value="/init",method=RequestMethod.GET)
+	@RequestMapping(method=RequestMethod.GET)
 	public String init() {
 		return "module/user";
 	}
@@ -72,6 +72,7 @@ public class UserController {
 	 * @param request
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping(value="/login",method=RequestMethod.POST)
 	public R login(@RequestBody User user,HttpServletRequest request){
 		Subject subject=SecurityUtils.getSubject();

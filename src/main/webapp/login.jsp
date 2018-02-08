@@ -17,7 +17,8 @@
     <link href="${ctx}/resources/assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
     <link href="${ctx}/resources/assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
     <link href="${ctx}/resources/assets/pages/css/login-5.min.css" rel="stylesheet" type="text/css" />
-    <link rel="shortcut icon" href="${ctx}/resources/img/favicon.ico" />
+    <link href="${ctx}/resources/assets/global/plugins/bootstrap-toastr/toastr.min.css" rel="stylesheet" type="text/css" />
+<%--     <link rel="shortcut icon" href="${ctx}/resources/img/favicon.ico" /> --%>
     <script src="${ctx}/resources/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
     <script src="${ctx}/resources/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="${ctx}/resources/assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
@@ -28,8 +29,7 @@
     <script src="${ctx}/resources/assets/global/plugins/jquery-validation/js/additional-methods.min.js" type="text/javascript"></script>
     <script src="${ctx}/resources/assets/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
     <script src="${ctx}/resources/assets/global/plugins/backstretch/jquery.backstretch.min.js" type="text/javascript"></script>
-    <script src="${ctx}/resources/assets/global/scripts/app.min.js" type="text/javascript"></script>
-	<script src="${ctx}/resources/js/common/common.js"  type="text/javascript"></script>
+    <script src="${ctx}/resources/assets/global/plugins/bootstrap-toastr/toastr.min.js" type="text/javascript"></script>
 </head>
 <body class="login">
     <div class="user-login-5">
@@ -41,17 +41,17 @@
             <div class="col-md-6 login-container bs-reset mt-login-5-bsfix">
                 <div class="login-content">
                     <h1>Metronic Admin Login</h1>
-                    <p> Lorem ipsum dolor sit amet, coectetuer adipiscing elit sed diam nonummy et nibh euismod aliquam erat volutpat. Lorem ipsum dolor sit amet, coectetuer adipiscing. </p>
-                    <form action="javascript:;" class="login-form" method="post">
+                    <p> Some of us get dipped in flat, some in satin, some in gloss. But every once in a while you find someone who's iridescent, and when you do, nothing will ever compare. </p>
+                    <form action="${ctx}/user/login" class="login-form" method="post">
                         <div class="alert alert-danger display-hide">
                             <button class="close" data-close="alert"></button>
                             <span>Enter any username and password. </span>
                         </div>
                         <div class="row">
                             <div class="col-xs-6">
-                                <input class="form-control form-control-solid placeholder-no-fix form-group" type="text" autocomplete="off" placeholder="Username" name="username" required/> </div>
+                                <input class="form-control form-control-solid placeholder-no-fix form-group" type="text" autocomplete="off" placeholder="Username" id="account" id="account" name="username" required/> </div>
                             <div class="col-xs-6">
-                                <input class="form-control form-control-solid placeholder-no-fix form-group" type="password" autocomplete="off" placeholder="Password" name="password" required/> </div>
+                                <input class="form-control form-control-solid placeholder-no-fix form-group" type="password" autocomplete="off" placeholder="Password" id="password" id="password" name="password" required/> </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-4">
@@ -66,7 +66,7 @@
                                 <div class="forgot-password">
                                     <a href="javascript:;" id="forget-password" class="forget-password">Forgot Password?</a>
                                 </div>
-                                <button class="btn green" type="submit">Sign In</button>
+                                <button class="btn green" type="submit" id="submit-btn">Sign In</button>
                             </div>
                         </div>
                     </form>
@@ -153,16 +153,43 @@ var Login = function() {
                 label.remove();
             },
             errorPlacement: function(error, element) {
-                error.insertAfter(element.closest('.input-icon'));
+                error.insertAfter($('.close'));
             },
             submitHandler: function(form) {
-                form.submit(); // form validation success, call ajax form submit
+            	//form.submit(); // form validation success, call ajax form submit
+            	var account=$.trim($('#account').val());
+            	var password=$.trim($('#password').val());
+            	var param = {
+           			'account' : account,
+           			'password': password
+           		};
+           		$.ajax({
+           			'type' : 'POST',
+           			'url' : "${ctx}/user/login",
+           			'contentType' : 'application/json;charset=UTF-8',
+           			'data' : JSON.stringify(param),
+           			'dataType' : 'json',
+           			'beforeSend': function () {
+           		        // 禁用按钮防止重复提交
+           		        $('#submit-btn').attr("disabled","disabled");
+           		    },
+           			'success' : function(data){
+           				if(data.code==0){
+           					window.location.href="${ctx}/homepage";
+           				}else{
+           					toastr.error(data.msg);
+           				}
+           			},
+           		  	'complete' : function () {
+           		  		 $('#submit-btn').removeAttr('disabled');
+           		    }
+           		});
             }
         });
         $('.login-form input').keypress(function(e) {
             if (e.which == 13) {
                 if ($('.login-form').validate().form()) {
-                    $('.login-form').submit(); //form validation success, call ajax form submit
+                    //$('.login-form').submit(); //form validation success, call ajax form submit
                 }
                 return false;
             }
@@ -202,13 +229,22 @@ var Login = function() {
         }
     };
 }();
-$(document).ready(function()
-{ 
+$(function(){ 
+    toastr.options = {
+	  "closeButton": true,
+	  "debug": false,
+	  "positionClass": "toast-top-center",
+	  "onclick": null,
+	  "showDuration": "1000",
+	  "hideDuration": "1000",
+	  "timeOut": "5000",
+	  "extendedTimeOut": "1000",
+	  "showEasing": "swing",
+	  "hideEasing": "linear",
+	  "showMethod": "fadeIn",
+	  "hideMethod": "fadeOut"
+	}
 	Login.init();
-    $('#clickmewow').click(function()
-    {
-        $('#radio1003').attr('checked', 'checked');
-    });
-})
+});
 </script>
 </html>

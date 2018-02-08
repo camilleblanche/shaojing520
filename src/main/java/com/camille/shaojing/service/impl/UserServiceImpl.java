@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,7 @@ public class UserServiceImpl implements IUserService{
 	@Autowired
 	private IUserDao iUserDao;
 	@Override
+	@CacheEvict(allEntries=true)
 	public Map<String, Object> addUser(User user) {
 		Map<String, Object> rtnMap=new HashMap<String, Object>();
 		String password = user.getPassword();
@@ -40,6 +42,7 @@ public class UserServiceImpl implements IUserService{
 	}
 
 	@Override
+	@CacheEvict(allEntries=true)
 	public Map<String, Object> deleteUser(Long[] userIds) {
 		Map<String, Object> rtnMap=new HashMap<String, Object>();
 		int result=iUserDao.deleteUser(userIds);
@@ -54,6 +57,7 @@ public class UserServiceImpl implements IUserService{
 	}
 
 	@Override
+	@CacheEvict(allEntries=true)
 	public Map<String, Object> updateUser(User user) {
 		Map<String, Object> rtnMap=new HashMap<String, Object>();
 		String password = user.getPassword();

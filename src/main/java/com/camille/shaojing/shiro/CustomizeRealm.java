@@ -60,7 +60,7 @@ public class CustomizeRealm extends AuthorizingRealm{
         }
         //密码错误
         if(!password.equals(user.getPassword())) {
-            throw new IncorrectCredentialsException("账号或密码不正确");
+            throw new IncorrectCredentialsException("密码不正确");
         }
         //账号锁定
         if("02".equals(user.getState())){
