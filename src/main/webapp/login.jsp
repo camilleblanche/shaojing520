@@ -86,7 +86,7 @@
                 <div class="login-footer">
                     <div class="row bs-reset">
                         <div class="col-xs-5 bs-reset">
-                            <ul class="login-social">
+                            <ul class="login-social" style="display: none">
                                 <li>
                                     <a href="javascript:;">
                                         <i class="icon-social-facebook"></i>

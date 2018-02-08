@@ -33,7 +33,7 @@ public class UserController {
 	 */
 	@RequestMapping(value="/init",method=RequestMethod.GET)
 	public String init() {
-		return "/module/demo";
+		return "module/user";
 	}
 	/**
 	 * 新增用户

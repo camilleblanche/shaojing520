@@ -45,12 +45,11 @@
 	    <!-- 权限认证失败，则跳转到未授权页面 -->  
 	    <property name="unauthorizedUrl" value="/unauthor.jsp"/>  
 	    <!-- 登录成功,则跳转到首页 -->  
-	    <property name="successUrl" value="/homepage/init"/>
+	    <property name="successUrl" value="/homepage"/>
 	    <!-- Shiro连接约束配置,即过滤链的定义 -->  
 	    <property name="filterChainDefinitions">  
 	        <value>  
 	        	/resources/** = anon
-	            /index.jsp = anon
 	            /unauthorized.jsp = anon
 	            /login.jsp = anon
 	            /user/login = anon

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../common/header.jsp"%>
-<title>栗子</title>
+<title>首页</title>
 </head>
 <body>
 <button id="updateBtn">click to update</button>
