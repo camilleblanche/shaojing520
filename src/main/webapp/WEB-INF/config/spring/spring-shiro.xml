@@ -11,22 +11,27 @@
     <!-- SecurityManager -->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <!-- session管理 -->
+        <!-- 自定义realm -->
+        <property name="realm" ref="customizeRealm"/>
         <property name="sessionManager" ref="sessionManager"></property>
         <property name="cacheManager" ref="cacheManager" />
-        <!-- 自定义realm -->
-        <property name="realm" ref="customizeRealm"/> 
     </bean>
     <!-- 自定义Realm -->
 	<bean id="customizeRealm" class="com.camille.shaojing.shiro.CustomizeRealm"/>  
     <!-- session管理 -->
     <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+        <!-- session存储的实现 -->
+        <property name="sessionDAO" ref="redisShiroSessionDao"></property>
+        <!-- 设置全局会话超时时间，默认30分钟 --> 
         <property name="globalSessionTimeout" value="1800000"></property>
+        <!-- sessionIdCookie的实现,用于重写覆盖容器默认的JSESSIONID -->
+        <property name="sessionIdCookie" ref="sharesession"></property>
+        <!-- 在会话过期后会调用SessionDAO的delete方法删除会话 -->
         <property name="deleteInvalidSessions" value="true"></property>
+        <!-- 会话验证器调度时间 -->  
+        <property name="sessionValidationInterval" value="1800000" /> 
         <!-- 定时检查失效的session -->
         <property name="sessionValidationSchedulerEnabled" value="true"/>
-        <property name="sessionDAO" ref="redisShiroSessionDao"></property>
-        <!-- sessionIdCookie的实现,用于重写覆盖容器默认的JSESSIONID -->
-        <property name="sessionIdCookie" ref="sharesession" />
     </bean>
     <!-- sessionIdCookie的实现,用于重写覆盖容器默认的JSESSIONID -->
     <bean id="sharesession" class="org.apache.shiro.web.servlet.SimpleCookie">
