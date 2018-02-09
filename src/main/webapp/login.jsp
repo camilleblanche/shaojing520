@@ -18,7 +18,7 @@
     <link href="${ctx}/resources/assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
     <link href="${ctx}/resources/assets/pages/css/login-5.min.css" rel="stylesheet" type="text/css" />
     <link href="${ctx}/resources/assets/global/plugins/bootstrap-toastr/toastr.min.css" rel="stylesheet" type="text/css" />
-<%--     <link rel="shortcut icon" href="${ctx}/resources/img/favicon.ico" /> --%>
+    <link href="${ctx}/resources/img/favicon.ico" rel="shortcut icon" />
     <script src="${ctx}/resources/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
     <script src="${ctx}/resources/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="${ctx}/resources/assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
@@ -157,39 +157,14 @@ var Login = function() {
             },
             submitHandler: function(form) {
             	//form.submit(); // form validation success, call ajax form submit
-            	var account=$.trim($('#account').val());
-            	var password=$.trim($('#password').val());
-            	var param = {
-           			'account' : account,
-           			'password': password
-           		};
-           		$.ajax({
-           			'type' : 'POST',
-           			'url' : "${ctx}/user/login",
-           			'contentType' : 'application/json;charset=UTF-8',
-           			'data' : JSON.stringify(param),
-           			'dataType' : 'json',
-           			'beforeSend': function () {
-           		        // 禁用按钮防止重复提交
-           		        $('#submit-btn').attr("disabled","disabled");
-           		    },
-           			'success' : function(data){
-           				if(data.code==0){
-           					window.location.href="${ctx}/homepage";
-           				}else{
-           					toastr.error(data.msg);
-           				}
-           			},
-           		  	'complete' : function () {
-           		  		 $('#submit-btn').removeAttr('disabled');
-           		    }
-           		});
+            	signIn();
             }
         });
         $('.login-form input').keypress(function(e) {
             if (e.which == 13) {
                 if ($('.login-form').validate().form()) {
                     //$('.login-form').submit(); //form validation success, call ajax form submit
+                	signIn();
                 }
                 return false;
             }
@@ -229,6 +204,35 @@ var Login = function() {
         }
     };
 }();
+function signIn(){
+	var account=$.trim($('#account').val());
+	var password=$.trim($('#password').val());
+	var param = {
+		'account' : account,
+		'password': password
+	};
+	$.ajax({
+		'type' : 'post',
+		'url' : "${ctx}/user/login",
+		'contentType' : 'application/json;charset=UTF-8',
+		'data' : JSON.stringify(param),
+		'dataType' : 'json',
+		'beforeSend': function () {
+	        // 禁用按钮防止重复提交
+	        $('#submit-btn').attr("disabled","disabled");
+	    },
+		'success' : function(data){
+			if(data.code==0){
+				window.location.href="${ctx}/homepage";
+			}else{
+				toastr.error(data.msg);
+			}
+		},
+	  	'complete' : function () {
+	  		 $('#submit-btn').removeAttr('disabled');
+	    }
+	});
+}
 $(function(){ 
     toastr.options = {
 	  "closeButton": true,

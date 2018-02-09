@@ -15,6 +15,7 @@
     <link href="${ctx}/resources/assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
     <link href="${ctx}/resources/assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
     <link href="${ctx}/resources/assets/pages/css/error.min.css" rel="stylesheet" type="text/css" />
+    <link href="${ctx}/resources/img/favicon.ico" rel="shortcut icon" />
     <script src="${ctx}/resources/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
     <script src="${ctx}/resources/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="${ctx}/resources/assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
