@@ -75,14 +75,16 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping(value="/login",method=RequestMethod.POST)
 	public R login(@RequestBody User user,HttpServletRequest request){
-		Subject subject=SecurityUtils.getSubject();
-		String account=user.getAccount();
+		Subject subject = SecurityUtils.getSubject();
+		String account = user.getAccount();
 		String passwordEn = CryptographyUtils.shiroMd5(user.getPassword());
-		UsernamePasswordToken token=new UsernamePasswordToken(account, passwordEn);
+		UsernamePasswordToken token = new UsernamePasswordToken(account, passwordEn);
 		try{
 			subject.login(token);//会跳到自定义realm中
-			Session session=subject.getSession();//包含sessionId,hostAddress,timeout等信息
-			session.setAttribute("user", iUserService.getUserByAccount(account));
+			Session session = subject.getSession();//包含sessionId,hostAddress,timeout等信息
+			User userdb = iUserService.getUserByAccount(account);
+			iUserService.updateUser(userdb);
+			session.setAttribute("user",userdb);
 			return R.ok();
 		}catch (UnknownAccountException e) {
 			return R.error(e.getMessage());

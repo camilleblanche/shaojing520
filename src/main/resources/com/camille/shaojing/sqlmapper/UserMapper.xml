@@ -219,7 +219,7 @@
         STATE = #{state,jdbcType=VARCHAR},
       </if>
       <if test="lastloginTime != null">
-        LASTLOGIN_TIME = #{lastloginTime,jdbcType=TIMESTAMP},
+        LASTLOGIN_TIME = NOW(),
       </if>
       <if test="createTime != null">
         CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
