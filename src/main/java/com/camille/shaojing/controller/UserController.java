@@ -83,7 +83,6 @@ public class UserController {
 			subject.login(token);//会跳到自定义realm中
 			Session session = subject.getSession();//包含sessionId,hostAddress,timeout等信息
 			User userdb = iUserService.getUserByAccount(account);
-			iUserService.updateUser(userdb);
 			session.setAttribute("user",userdb);
 			return R.ok();
 		}catch (UnknownAccountException e) {
