@@ -41,11 +41,11 @@ class B extends A{
     static {
         System.out.println("B的静态块");
     }
+    public B() {
+    	System.out.println("B的构造方法");
+    }
     {
         System.out.println("B的实例块");
-    }
-    public B() {
-        System.out.println("B的构造方法");
     }
     private String str = getStr();
     private static String getStaticStr() {
