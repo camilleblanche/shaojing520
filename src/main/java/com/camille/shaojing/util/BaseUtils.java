@@ -8,6 +8,13 @@ import java.util.Date;
 
 public class BaseUtils {
 	/**
+	 * 工具类中的方法以静态方式访问
+	 * 将构造器私有不允许创建对象
+	 */
+    private BaseUtils() {
+        throw new AssertionError();
+    }
+	/**
 	 * 判空
 	 * @param obj
 	 * @return
